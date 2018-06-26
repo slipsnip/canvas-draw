@@ -1,0 +1,23 @@
+{
+  "name": "canvas-draw",
+  "version": "1.0.0",
+  "description": "Draw stuff on HTML5 Canvas",
+  "main": "main.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slipsnip/canvas-draw.git"
+  },
+  "keywords": [
+    "canvas",
+    "html5"
+  ],
+  "author": "Michael Esch",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/slipsnip/canvas-draw/issues"
+  },
+  "homepage": "https://github.com/slipsnip/canvas-draw#readme"
+}
