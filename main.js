@@ -8,10 +8,8 @@ let mainWindow;
 function createWindow () {
     mainWindow = new BrowserWindow({width: 800, height: 600});
 
-    // and load the index.html of the app.
-    //mainWindow.loadURL(`file://${__dirname}/index.html`);
-    // Use in development only
-    mainWindow.loadURL("localhost:4000");
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
+
 
     mainWindow.on("closed", function () {
         mainWindow = null;
