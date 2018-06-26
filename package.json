@@ -5,7 +5,6 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "http-server -p 4000"
   },
   "repository": {
     "type": "git",
@@ -13,7 +12,8 @@
   },
   "keywords": [
     "canvas",
-    "html5"
+    "html5",
+    "Electron"
   ],
   "author": "Michael Esch",
   "license": "GPL-3.0",
@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/slipsnip/canvas-draw#readme",
   "devDependencies": {
-    "electron": "^2.0.3",
-    "webpack-dev-server": "^3.1.4"
+    "electron": "^2.0.3"
   }
 }
