@@ -4,7 +4,7 @@
   "description": "Draw stuff on HTML5 Canvas",
   "main": "main.js",
   "scripts": {
-    "test": "electron ."
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/slipsnip/canvas-draw/issues"
   },
-  "homepage": "https://github.com/slipsnip/canvas-draw#readme"
+  "homepage": "https://github.com/slipsnip/canvas-draw#readme",
+  "devDependencies": {
+    "electron": "^2.0.3"
+  }
 }

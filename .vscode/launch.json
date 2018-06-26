@@ -5,11 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug Renderer Process",
             "type": "chrome",
             "request": "launch",
-            "name": "Debug in Chrome",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "runtimeArgs": [
+                "${workspaceRoot}/main.js",
+                "--remote-debugging-port=9222"
+            ],
+            "webRoot": "${workspaceRoot}"
         }
     ]
 }
