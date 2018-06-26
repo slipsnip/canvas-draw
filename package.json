@@ -4,7 +4,8 @@
   "description": "Draw stuff on HTML5 Canvas",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dev": "http-server -p 4000"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/slipsnip/canvas-draw#readme",
   "devDependencies": {
-    "electron": "^2.0.3"
+    "electron": "^2.0.3",
+    "webpack-dev-server": "^3.1.4"
   }
 }
