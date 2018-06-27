@@ -40,39 +40,45 @@ class roundRect {
     }
 }
 
+// calculate points along circle path using parametric equation
+function pointOnCircle(centerX, centerY, radius, angle){
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+    return {x, y};
+}
 
+/**
+ * 
+ * @param {Number} count 
+ * @param {Number} x 
+ * @param {Number} y 
+ * @param {Number} innerRadius 
+ * @param {Number} outerRadius 
+ */
+function circleOfCircles(count, x, y, innerRadius, outerRadius) {
+
+    const theta = (Math.PI * 2) / count; // angle required to draw count circles
+    let position = pointOnCircle(x, y, innerRadius, theta);
+
+    // Loop for how many theta's fit within the path circumference
+    for (let index = 0, increment = theta; index < count; index++) {
+        
+        ctx.beginPath();
+        ctx.arc(position.x, position.y, outerRadius, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#0f0";
+        ctx.stroke();
+        position = pointOnCircle(x, y, innerRadius, increment += theta);
+        // position incremented by theta radians
+        
+    }
+}
+
+// Setup 2d context
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-
+// Adjust canvas style
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 canvas.style.border = "2px solid black";
-
-// Test rounded rectangle class
-// const smoothRectangle = new roundRect(100, 100,300,300,25,"#f00");
-// smoothRectangle.draw(ctx);
-
-// Experiment with drawing lines, setting styles
-// ctx.beginPath();
-// ctx.moveTo(50,300);
-// ctx.arcTo(300,100, 400, 300, 15);
-// ctx.strokeStyle = "#fa34bc";
-// ctx.setLineDash([4,4]);
-// ctx.lineWidth = 5;
-// ctx.stroke();
-
-// Playing with arcs and circles
-ctx.beginPath();
-ctx.arc(235,235,130,0,1,true);
-ctx.strokeStyle = "#0f0";
-ctx.lineWidth = 2;
-ctx.setLineDash([2,2]);
-ctx.stroke();
-ctx.beginPath();
-ctx.moveTo(235,235);
-
-// Draw radius line
-ctx.lineTo(235+130,235);
-ctx.setLineDash([0,0]);
-ctx.strokeStyle = "#000";
-ctx.stroke();
+// Make a circle surounded by circles
+circleOfCircles(10, 300, 300, 150, 25);
