@@ -57,10 +57,21 @@ function pointOnCircle(centerX, centerY, radius, angle){
  */
 function circleOfCircles(count, x, y, innerRadius, outerRadius) {
 
-    const theta = (Math.PI * 2) / count; // angle required to draw count circles
+    // Check bounds of drawn circle
+    const boundingRadius = (innerRadius + outerRadius);
+    const top = y - boundingRadius;
+    const left = x - boundingRadius;
+    const bottom = y + boundingRadius;
+    const right = x + boundingRadius;
+
+    if (top < 0 || left < 0 || bottom > canvas.height || right > canvas.width){
+        return false;
+    }
+
+    // Calculate theta (angle of increment) and initial position
+    const theta = (Math.PI * 2) / count;
     let position = pointOnCircle(x, y, innerRadius, theta);
 
-    // Loop for how many theta's fit within the path circumference
     for (let index = 0, increment = theta; index < count; index++) {
         
         ctx.beginPath();
@@ -68,9 +79,10 @@ function circleOfCircles(count, x, y, innerRadius, outerRadius) {
         ctx.strokeStyle = "#0f0";
         ctx.stroke();
         position = pointOnCircle(x, y, innerRadius, increment += theta);
-        // position incremented by theta radians
         
     }
+
+    return true;
 }
 
 // Setup 2d context
@@ -81,4 +93,5 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 canvas.style.border = "2px solid black";
 // Make a circle surounded by circles
-circleOfCircles(10, 300, 300, 150, 25);
+circleOfCircles(10, canvas.width/2, canvas.height/2, 150, 25);
+
