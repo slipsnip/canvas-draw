@@ -41,7 +41,7 @@ class roundRect {
 }
 
 // calculate points along circle path using parametric equation
-function pointOnCircle(centerX, centerY, radius, angle){
+function pointOnCircle (centerX, centerY, radius, angle) {
     const x = centerX + radius * Math.cos(angle);
     const y = centerY + radius * Math.sin(angle);
     return {x, y};
@@ -55,7 +55,7 @@ function pointOnCircle(centerX, centerY, radius, angle){
  * @param {Number} innerRadius 
  * @param {Number} outerRadius 
  */
-function circleOfCircles(count, x, y, innerRadius, outerRadius) {
+function circleOfCircles (count, x, y, innerRadius, outerRadius) {
 
     // Check bounds of drawn circle
     const boundingRadius = (innerRadius + outerRadius);
@@ -85,6 +85,21 @@ function circleOfCircles(count, x, y, innerRadius, outerRadius) {
     return true;
 }
 
+function randomCircles(count, context, width, height) {
+    
+    
+    for (let index = 0; index < count; index++) {
+        context.beginPath();
+        let color = (Math.random() * 16777216); // 16777216 = FFFFFF
+        color = `#${Math.floor(color).toString(16)}`;
+        const [x, y] = [width * Math.random(), height * Math.random()];
+        context.arc(x, y, 20, 0, 2 * Math.PI);
+        context.strokeStyle = color;
+        context.stroke();
+    }
+    
+}
+
 // Setup 2d context
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -92,6 +107,8 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 canvas.style.border = "2px solid black";
-// Make a circle surounded by circles
-circleOfCircles(10, canvas.width/2, canvas.height/2, 150, 25);
 
+// Make a circle surounded by circles
+// circleOfCircles(10, canvas.width/2, canvas.height/2, 150, 25);
+// Chris courses Canvas Api tutorial challenge 1
+randomCircles(24, ctx, canvas.width, canvas.height);
