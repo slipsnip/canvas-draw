@@ -1,17 +1,17 @@
 /** Class for rounded rectangle */
 class roundRect {
     /**
-     * 
-     * @param {number} x 
-     * @param {number} y 
-     * @param {number} width 
-     * @param {number} height 
-     * @param {number} radius 
+     *
+     * @param {number} x
+     * @param {number} y
+     * @param {number} width
+     * @param {number} height
+     * @param {number} radius
      * @param {string} strokeStyle // MDN: CanvasRenderingContext2D.strokeStyle
      * @param {number} lineWidth  // Thickness of line
      * @param {Array} dash // MDN: Array of numbers which specify distances to alternately draw a line and a gap
      */
-    constructor(x, y, width, height, radius, strokeStyle = "#000", lineWidth = 2, dash = [0, 0]) {
+    constructor(x, y, width, height, radius, strokeStyle = '#000', lineWidth = 2, dash = [0, 0]) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -21,8 +21,9 @@ class roundRect {
         this.lineWidth = lineWidth;
         this.dash = dash;
     }
+
     /**
-     * 
+     *
      * @param {CanvasRenderingContext2D} ctx // MDN: CanvasRenderingContext2D
      */
     draw(ctx) {
@@ -41,22 +42,21 @@ class roundRect {
 }
 
 // calculate points along circle path using parametric equation
-function pointOnCircle (centerX, centerY, radius, angle) {
+function pointOnCircle(centerX, centerY, radius, angle) {
     const x = centerX + radius * Math.cos(angle);
     const y = centerY + radius * Math.sin(angle);
-    return {x, y};
+    return { x, y };
 }
 
 /**
- * 
- * @param {Number} count 
- * @param {Number} x 
- * @param {Number} y 
- * @param {Number} innerRadius 
- * @param {Number} outerRadius 
+ *
+ * @param {Number} count
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} innerRadius
+ * @param {Number} outerRadius
  */
-function circleOfCircles (count, x, y, innerRadius, outerRadius) {
-
+function circleOfCircles(count, x, y, innerRadius, outerRadius) {
     // Check bounds of drawn circle
     const boundingRadius = (innerRadius + outerRadius);
     const top = y - boundingRadius;
@@ -64,7 +64,7 @@ function circleOfCircles (count, x, y, innerRadius, outerRadius) {
     const bottom = y + boundingRadius;
     const right = x + boundingRadius;
 
-    if (top < 0 || left < 0 || bottom > canvas.height || right > canvas.width){
+    if (top < 0 || left < 0 || bottom > canvas.height || right > canvas.width) {
         return false;
     }
 
@@ -73,21 +73,17 @@ function circleOfCircles (count, x, y, innerRadius, outerRadius) {
     let position = pointOnCircle(x, y, innerRadius, theta);
 
     for (let index = 0, increment = theta; index < count; index++) {
-        
         ctx.beginPath();
         ctx.arc(position.x, position.y, outerRadius, 0, 2 * Math.PI);
-        ctx.strokeStyle = "#0f0";
+        ctx.strokeStyle = '#0f0';
         ctx.stroke();
         position = pointOnCircle(x, y, innerRadius, increment += theta);
-        
     }
 
     return true;
 }
 
 function randomCircles(count, context, width, height) {
-    
-    
     for (let index = 0; index < count; index++) {
         context.beginPath();
         let color = (Math.random() * 16777216); // 16777216 = FFFFFF
@@ -97,18 +93,36 @@ function randomCircles(count, context, width, height) {
         context.strokeStyle = color;
         context.stroke();
     }
-    
 }
 
 // Setup 2d context
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
 // Adjust canvas style
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-canvas.style.border = "2px solid black";
+canvas.style.border = '2px solid black';
 
 // Make a circle surounded by circles
 // circleOfCircles(10, canvas.width/2, canvas.height/2, 150, 25);
 // Chris courses Canvas Api tutorial challenge 1
-randomCircles(24, ctx, canvas.width, canvas.height);
+// randomCircles(24, ctx, canvas.width, canvas.height);
+
+let x = 200;
+let dx = 4; // velocity
+const radius = 30;
+
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.beginPath();
+    ctx.arc(x, 200, radius, 0, 2 * Math.PI, false);
+    ctx.strokeStyle = 'blue';
+    ctx.stroke();
+    if (x + radius > window.innerWidth || x - radius < 0) {
+        dx = -(dx);
+    }
+    x += dx;
+}
+
+animate();
