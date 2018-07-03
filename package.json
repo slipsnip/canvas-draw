@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/slipsnip/canvas-draw#readme",
   "devDependencies": {
-    "electron": "^2.0.3"
+    "electron": "^2.0.3",
+    "parcel-bundler": "^1.9.4"
   }
 }

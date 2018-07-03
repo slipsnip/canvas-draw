@@ -1,3 +1,5 @@
+import randomRange from './math';
+
 /** Class for rounded rectangle */
 class roundRect {
     /**
@@ -108,21 +110,59 @@ canvas.style.border = '2px solid black';
 // Chris courses Canvas Api tutorial challenge 1
 // randomCircles(24, ctx, canvas.width, canvas.height);
 
-let x = 200;
-let dx = 4; // velocity
-const radius = 30;
+
+class Circle {
+    constructor(x, y, dx, dy, radius) {
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+        this.radius = radius;
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+        ctx.strokeStyle = 'blue';
+        ctx.stroke();
+    }
+
+    update() {
+        if (this.x + this.radius > window.innerWidth || this.x - this.radius < 0) {
+            this.dx = -(this.dx);
+        }
+        if (this.y + this.radius > window.innerHeight || this.y - this.radius < 0) {
+            this.dy = -(this.dy);
+        }
+        this.x += this.dx;
+        this.y += this.dy;
+    }
+}
+
+// min: 2r, max: width-2r
+let radius = 50;
+const circle1 = new Circle(randomRange(2 * radius, window.innerWidth - 2 * radius),
+    randomRange(2 * radius, window.innerHeight - 2 * radius),
+    (Math.random() - 0.5) * 8,
+    (Math.random() - 0.5) * 8,
+    radius);
+radius = 30;
+const circle2 = new Circle(randomRange(2 * radius, window.innerWidth - 2 * radius),
+    randomRange(2 * radius, window.innerHeight - 2 * radius),
+    (Math.random() - 0.5) * 8,
+    (Math.random() - 0.5) * 8,
+    radius);
+
+const circles = [circle1, circle2];
 
 function animate() {
     requestAnimationFrame(animate);
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    ctx.beginPath();
-    ctx.arc(x, 200, radius, 0, 2 * Math.PI, false);
-    ctx.strokeStyle = 'blue';
-    ctx.stroke();
-    if (x + radius > window.innerWidth || x - radius < 0) {
-        dx = -(dx);
-    }
-    x += dx;
+    circles.forEach((circle) => {
+        circle.draw();
+        circle.update();
+    });
+
 }
 
 animate();
